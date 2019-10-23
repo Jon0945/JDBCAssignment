@@ -15,7 +15,7 @@ public class CityDaoJDBC implements CityDao {
     private static final String ADD_CITY = "INSERT INTO city (Name,CountryCode,District,Population" +
             "VALUES(?,?,?,?)";
     private static final String UPDATE = "UPDATE city SET Name = ?, CountryCode = ?, District = ?, Population = ? WHERE ID = ?";
-    private static final String DELETE = "DELTEE FROM city WHERE ID = ?";
+    private static final String DELETE = "DELETE FROM city WHERE ID = ?";
 
 
     private PreparedStatement createFindById(Connection connection, int id) throws SQLException {
@@ -100,56 +100,56 @@ public class CityDaoJDBC implements CityDao {
 
     @Override
     public List<City> findByCode(String code) {
-        List<City> resultlist = new ArrayList<>();
+        List<City> resultList = new ArrayList<>();
         try(
                 Connection connection = Database.getConnection();
                 PreparedStatement statement = createFindByCode(connection, code);
                 ResultSet resultSet = statement.executeQuery()
         ) {
             while (resultSet.next()) {
-                resultlist.add(cityFromResultSet(resultSet));
+                resultList.add(cityFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return resultlist;
+        return resultList;
     }
 
     @Override
     public List<City> findByName(String name) {
-        List<City> resultlist = new ArrayList<>();
+        List<City> resultList = new ArrayList<>();
         try (
                 Connection connection = Database.getConnection();
                 PreparedStatement statement = createFindByName(connection,name);
                 ResultSet resultSet = statement.executeQuery()
         ) {
             while (resultSet.next()) {
-                resultlist.add(cityFromResultSet(resultSet));
+                resultList.add(cityFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return  resultlist;
+        return  resultList;
     }
 
     @Override
     public List<City> findAll() {
-        List<City> resultlist = new ArrayList<>();
+        List<City> resultList = new ArrayList<>();
         try (
                 Connection connection = Database.getConnection();
                 PreparedStatement statement = createFindAll(connection);
                 ResultSet resultSet = statement.executeQuery()
         ){
             while (resultSet.next()) {
-                resultlist.add(cityFromResultSet(resultSet));
+                resultList.add(cityFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return  resultlist;
+        return  resultList;
     }
 
     @Override
